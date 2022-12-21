@@ -21,19 +21,16 @@ public class Library {
     public void requestWriter(Thread object) throws InterruptedException {
         waiters.acquire();
         System.out.println("Writer " + object.getName().substring(7) + " waits...");
-        for(int i = 0; i< space_in_library; i++) {
-            inside.acquire();
-        }
+        inside.acquire(space_in_library);
+
 
 
         Thread.sleep(500);
 
         waiters.release();
         System.out.println("Writer " + object.getName().substring(7) + " writes...");
-        for(int i = 0; i< space_in_library; i++)
-        {
-            inside.release();
-        }
+        inside.release(space_in_library);
+
         System.out.println("Writer " + object.getName().substring(7) + " published new BOOK");
     }
 
